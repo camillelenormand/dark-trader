@@ -1,15 +1,17 @@
-# lib/representatives.rb
-
+# Importing the required libraries
 require 'nokogiri'   
 require 'open-uri'
 require 'pry'
+require 'json'
 
+# Defining a function to get the representatives
 def get_representatives
 
-  deputies = {}
+  # Initializing the variables
+  deputies = []
   names = []
   i = 0
-  total_pages = 20
+  total_pages = 200
   path = "https://www.voxpublic.org/spip.php?page=annuaire&cat=deputes&lang=fr&debut_deputes="
   first_names = []
   last_names = []
@@ -19,14 +21,18 @@ def get_representatives
   while i < total_pages do
     new_url = path+i.to_s+"#pagination_deputes"
     content = Nokogiri::HTML(URI.open(new_url))
+
+    # Extracting the names of the representatives
     content.css('//*[@id="content"]/div/div/ul/li/h2').each do |link|
       names << link.text.strip
     end
+
+    # Extracting the emails of the representatives
     content.xpath('//a[contains(@href, "mailto")]').each do | email |
       emails << email.text.split(' ')
     end
 
-    # Split firstnames and lastnames
+    # Splitting the firstnames and lastnames
     names.each do |name|
       split_name = name.split(' ')
       first_names << split_name[0]
@@ -34,20 +40,27 @@ def get_representatives
     end
     i += 10
   end
-  # Create hash
-  deputies[:first_name] = first_names
-  deputies[:last_name] = last_names
-  deputies[:email] = emails
-  
-  deputies = deputies[:first_name].zip(deputies[:last_name], deputies[:email]).map {
-    | first_name, last_name, email | {
-        first_name: first_name,
-        last_name: last_name,
-        email: emails
+
+  # Creating a hash of the deputies
+  first_names.each_with_index do |first_name, index|
+    deputy = {
+      "first_name": first_name,
+      "last_name": last_names[index],
+      "email": emails[index]
     }
+
+    deputies << deputy
+  end
+
+  # Creating a JSON object of the deputies
+  json_object = {
+    "deputies": deputies
   }
-puts deputies
+
+  # Printing the JSON object
+  puts JSON.pretty_generate(json_object)
 
 end
 
+# Calling the function to get the representatives
 get_representatives

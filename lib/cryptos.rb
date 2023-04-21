@@ -14,8 +14,8 @@ def crypto_scrapper
   # Combine the two arrays into a hash
   hash = all_names.zip(all_prices).to_h
 
-  # Print the hash
-  #puts hash
+  binding.pry
+
 end
 
 # Call the method

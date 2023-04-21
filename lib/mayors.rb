@@ -32,8 +32,9 @@ def get_townhall_list(townhall_list_url)
 
   # Create a hash with the towns and their email addresses
   hash = towns.zip(emails).to_h
-  #print hash
+
 end
+binding.pry
 
 # Call the method with the URL of the townhall list page
 get_townhall_list(townhall_list_url)
