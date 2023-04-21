@@ -42,7 +42,7 @@ def get_deputies
     deputy = {
       "first_name": first_name,
       "last_name": last_names[index],
-      "email": emails[index]
+      "emails": emails[index]
     }
 
     deputies << deputy
