@@ -8,7 +8,7 @@ def get_deputies
   deputies = []
   names = []
   i = 0
-  total_pages = 70
+  total_pages = 70 # actual number is 570
   path = "https://www.voxpublic.org/spip.php?page=annuaire&cat=deputes&lang=fr&debut_deputes="
   first_names = []
   last_names = []
