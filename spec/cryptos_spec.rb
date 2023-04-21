@@ -9,7 +9,7 @@ describe "#crypto_scrapper" do
     expect(crypto_scrapper).not_to be_empty
   end
 
-  it 'returns a hash with at least 10 entries' do
+  it 'returns a hash with at least 20 entries' do
     expect(crypto_scrapper.size).to be == 20
   end
 
