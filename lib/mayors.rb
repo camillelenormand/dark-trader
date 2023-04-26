@@ -37,15 +37,10 @@ def get_townhall_list(townhall_list_url)
   hash = towns.zip(emails).to_h
 
   # Generate JSON file
-  File.open("townhall_list.json","w") do |f|
+  file = File.open("townhall_list.json","w") do |f|
     f.write(hash.to_json)
   end
-
 end
-
-
-
-
 
 # Call the method with the URL of the townhall list page
 get_townhall_list(townhall_list_url)
