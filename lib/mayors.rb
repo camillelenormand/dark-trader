@@ -1,6 +1,9 @@
 require 'nokogiri'   
 require 'open-uri'
 require 'pry'
+require 'json'
+
+#binding.pry
 
 townhall_list_url = "https://annuaire-des-mairies.com/val-d-oise.html"
 
@@ -32,9 +35,18 @@ def get_townhall_list(townhall_list_url)
 
   # Create a hash with the towns and their email addresses
   hash = towns.zip(emails).to_h
-  print hash
+
+  # Generate JSON file
+  File.open("townhall_list.json","w") do |f|
+    f.write(hash.to_json)
+  end
+
 end
-#binding.pry
+
+
+
+
 
 # Call the method with the URL of the townhall list page
 get_townhall_list(townhall_list_url)
+
